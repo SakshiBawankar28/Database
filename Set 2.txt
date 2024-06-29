@@ -1,0 +1,157 @@
+create table Mobiles
+ (
+ moblie_id int primary key,
+ model varchar(30),
+ company varchar(30),
+ price float(9,2),
+ os_id int,
+ constraint fk_oid foreign key(os_id) references OS (os_id)
+ );
+
+insert into mobiles (moblie_id, model, company, price, os_id) values (1, "iPhone", "Apple", 80000, 2),  (2, "Note 10 Pro", "Redmi", 18000, 1), (3, "Lumia 420", "Nokia", 18000, 3), (4, "M30", "Sumsung", 18000, 2), (5, "A31", "Oppo", 11500, 1), (6, "Narzo", "RealMe", 9000, 1);
+
+
+insert into os(os_id,os_name) values(1,"Android"), (2,"IOS"), (3,"Windows");
+
+
+select * from mobiles;
++-----------+-------------+---------+----------+-------+
+| moblie_id | model       | company | price    | os_id |
++-----------+-------------+---------+----------+-------+
+|         1 | iPhone      | Apple   | 80000.00 |     2 |
+|         2 | Note 10 Pro | Redmi   | 18000.00 |     1 |
+|         3 | Lumia 420   | Nokia   | 18000.00 |     3 |
+|         4 | M30         | Sumsung | 18000.00 |     2 |
+|         5 | A31         | Oppo    | 11500.00 |     1 |
+|         6 | Narzo       | RealMe  |  9000.00 |     1 |
++-----------+-------------+---------+----------+-------+
+6 rows in set (0.00 sec)
+
+mysql> select * from os;
++-------+---------+
+| os_id | os_name |
++-------+---------+
+|     1 | Android |
+|     2 | IOS     |
+|     3 | Windows |
++-------+---------+
+3 rows in set (0.00 sec)
+
+
+1. write a subquery to display data of Mobiles who has OS Android (Use sub-query
+select * from mobiles where os_id = (select os_id from os where os_name = "Android");
++-----------+-------------+---------+----------+-------+
+| moblie_id | model       | company | price    | os_id |
++-----------+-------------+---------+----------+-------+
+|         2 | Note 10 Pro | Redmi   | 18000.00 |     1 |
+|         5 | A31         | Oppo    | 11500.00 |     1 |
+|         6 | Narzo       | RealMe  |  9000.00 |     1 |
++-----------+-------------+---------+----------+-------+
+3 rows in set (0.00 sec)
+
+
+
+2. Write a query to increse price 10% whose OS_id = 2, increase price 20% whose OS_id = 1 and other 30%. (Use only CASE)--
+formula((initial price*percent/100)+initial price)
+
+update mobiles
+set price = case
+when os_id = 2 then (price * 1.1)
+when os_id = 1 then (price * 1.2)
+else (price * 1.3)
+end;
+=>
+mysql> select * from mobiles;
++-----------+-------------+---------+----------+-------+
+| moblie_id | model       | company | price    | os_id |
++-----------+-------------+---------+----------+-------+
+|         1 | iPhone      | Apple   | 88000.00 |     2 |
+|         2 | Note 10 Pro | Redmi   | 21600.00 |     1 |
+|         3 | Lumia 420   | Nokia   | 23400.00 |     3 |
+|         4 | M30         | Sumsung | 19800.00 |     2 |
+|         5 | A31         | Oppo    | 13800.00 |     1 |
+|         6 | Narzo       | RealMe  | 10800.00 |     1 |
++-----------+-------------+---------+----------+-------+
+6 rows in set (0.00 sec)
+
+
+
+
+3. Join two tables to Display the OS_ID, OS_NAME where the count of OS is greater than 1(use join and having)
+
+select m.os_id, os_name, count(*) from mobiles m , os o  
+where  m.os_id = o.os_id
+group by m.os_id, os_name
+having count(*)>1;
+=>
++-------+---------+----------+
+| os_id | os_name | count(*) |
++-------+---------+----------+
+|     1 | Android |        3 |
+|     2 | IOS     |        2 |
++-------+---------+----------+
+2 rows in set (0.00 sec)
+
+
+
+
+
+
+
+2. Create the collection Sports as shown in above the diagram
+
+db.createCollection("sports")
+
+
+
+3. Insert all the above 4 documents in the Courses collection
+
+
+db.sports.insert({student:'Rohan', sport_name:'Cricket', cost:3000, address:'Shivaji Nagar'})
+
+db.sports.insert({student:'Mohan', sport_name:'Foot Ball', cost:4000, address:'Swagate'})
+
+db.sports.insert({student:'Roma', sport_name:'Swimming', cost:2000})
+
+db.sports.insert({student:'Mahesh', sport_name:'Tennis', address:'Deccan'})
+
+
+
+iacsd0324> db.sports.find()
+[
+  {
+    _id: ObjectId('6612e54165b228b5d19f990a'),
+    student: 'Rohan',
+    sport_name: 'Cricket',
+    cost: 3000,
+    address: 'Shivaji Nagar'
+  },
+  {
+    _id: ObjectId('6612e56f65b228b5d19f990b'),
+    student: 'Mohan',
+    sport_name: 'Foot Ball',
+    cost: 4000,
+    address: 'Swagate'
+  },
+  {
+    _id: ObjectId('6612e5a765b228b5d19f990c'),
+    student: 'Roma',
+    sport_name: 'Swimming',
+    cost: 2000
+  },
+  {
+    _id: ObjectId('6612e5e665b228b5d19f990d'),
+    student: 'Mahesh',
+    sport_name: 'Tennis',
+    address: 'Deccan'
+  }
+]
+
+
+4.Update the Address of document in to Viman Nagar whose cost is 4000.
+
+db.sports.updateMany({cost : 4000}, {$set : {address : "Viman Nagar"}})
+
+
+5. Delete the document from Sports collection , where Students name is Rohan
+db.sports.deleteOne({student : "Rohan"})
