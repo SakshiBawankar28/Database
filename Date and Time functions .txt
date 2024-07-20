@@ -1,0 +1,56 @@
+Date and Time functions 
+
+1.	Write a query to display the first day of the month (in datetime format) three months before the current month. Sample current date : 2014-09-03 Expected result : 2014-06-01 
+select date_sub('2014-09-03', interval 3 month);
+select date_sub(curdate(), interval 3 month);
+
+ 
+
+
+2.	Write a query to display the last day of the month (in datetime format) three months before the current month. 
+select last_day(date_sub(curdate(), interval 3 month));
+ 
+
+
+3.	Write a query to get the distinct Mondays from hiredate in emp tables. 
+select distinct hiredate, dayname(hiredate) from emp where dayname(hiredate) = 'Monday';
+
+ 
+4.	Write a query to get the first day of the current year. 
+select str_to_date(concat(year(curdate()),'-01-01'),'%Y-%m-%d') 'first_day_of_current_year';
+
+ 
+
+
+5.	Write a query to get the last day of the current year. 
+select str_to_date(concat(year(curdate()),'-12-31'),'%Y-%m-%d')  'last_day_of_current_year';
+ 
+
+
+6.	Write a query to calculate your age in year.
+select floor(datediff(curdate(), '2001-12-28')/365)'My_Current_Age'; 
+
+ 
+
+
+7.	Write a query to get the current date in the following format. Sample date : 04-sep-2014 Output : September 4, 2014 
+select date_format(curdate(),'%M %d, %Y')'Current Date';
+
+ 
+8.	Write a query to get the current date in Thursday September 2014 format.  
+select date_format(curdate(), '%W %M %Y')'Current Date';
+
+ 
+
+
+9.	Write a query to extract the year from the current date. 
+select extract(year from curdate())'Year';
+
+ 
+
+
+10.	Write a query to get the first name and hire date from employees table where hire date between '1987-06-01' and '1987-07-30' 
+select ename, hiredate from emp where hiredate between '1987-06-01' and '1987-07-30';
+
+ 
+
