@@ -1,0 +1,65 @@
+mysql> select * from EmployeeInfo;
++-------+----------+----------+------------+---------+----------------+------------+--------+
+| EmpID | EmpFname | EmpLname | Department | Project | Address        | DOB        | Gender |
++-------+----------+----------+------------+---------+----------------+------------+--------+
+|     1 | Sanjay   | Mehra    | HR         | P1      | Hyderabad(HYD) | 1976-12-01 | M      |
+|     2 | Ananya   | Mishra   | Admin      | P2      | Delhi(DEL)     | 1968-05-02 | F      |
+|     3 | Rohan    | Diwan    | Account    | P3      | Mumbai(BOM)    | 1980-01-01 | M      |
+|     4 | Sonia    | Kulkarni | HR         | P1      | Hyderabad(HYD) | 1992-05-02 | F      |
+|     5 | Ankit    | Kapoor   | Admin      | P2      | Delhi(DEL)     | 1994-07-03 | M      |
++-------+----------+----------+------------+---------+----------------+------------+--------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from EmployeePosition;
++-------+-------------+---------------+-----------+
+| EmpID | EmpPosition | DateOfJoining | Salary    |
++-------+-------------+---------------+-----------+
+|     1 | Manager     | 2024-05-01    | 500000.00 |
+|     2 | Executive   | 2024-05-02    |  75000.00 |
+|     3 | Manager     | 2024-05-01    |  90000.00 |
+|     2 | Lead        | 2024-05-02    |  85000.00 |
+|     1 | Executive   | 2024-05-01    | 300000.00 |
++-------+-------------+---------------+-----------+
+5 rows in set (0.00 sec)
+
+Write a query to fetch the EmpFname from the EmployeeInfo table in the upper case and use the ALIAS name as EmpName.
+mysql> select upper(EmpFname)EmpName from EmployeeInfo;
++---------+
+| EmpName |
++---------+
+| SANJAY  |
+| ANANYA  |
+| ROHAN   |
+| SONIA   |
+| ANKIT   |
++---------+
+5 rows in set (0.00 sec)
+
+Write a query to fetch the number of employees working in the department ‘HR’.
+mysql> select count(*) from EmployeeInfo where department = "HR";
++----------+
+| count(*) |
++----------+
+|        2 |
++----------+
+1 row in set (0.01 sec)
+
+Write a query to get the current date.
+mysql> select curdate();
++------------+
+| curdate()  |
++------------+
+| 2024-07-29 |
++------------+
+1 row in set (0.00 sec)
+
+
+Write a query to retrieve the first four characters of  EmpLname from the EmployeeInfo table.
+Write a query to fetch only the place name(string before brackets) from the Address column of EmployeeInfo table.
+Write a query to create a new table that consists of data and structure copied from the other table.
+Write q query to find all the employees whose salary is between 50000 to 100000.
+Write a query to find the names of employees that begin with ‘S’
+Write a query to fetch top N records.
+Write a query to retrieve the EmpFname and EmpLname in a single column as “FullName”. The first name and the last name must be separated with space.
+Q1. Write a query to fetch the EmpFname from the EmployeeInfo table in upper case and use the ALIAS name as EmpName.
